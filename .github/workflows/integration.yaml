@@ -13,6 +13,33 @@ jobs:
         
       - name: checks out the repository
         uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Create EKS Cluster
+        run: |
+          eksctl create cluster --name Acluster \
+          --nodegroup-name Acluster \
+          --node.type t2.micro \
+          --nodes 4 \
+          --nodes-max 4 \
+          --nodes-min 2 \
+          --managed
+          # aws eks --region your-aws-region create-cluster \
+          #   --name your-eks-cluster-name \
+          #   --kubernetes-version 1.21 \
+          #   --role-arn arn:aws:iam::your-account-id:role/your-eks-cluster-role \
+          #   # Additional parameters as needed
+
+      # - name: Get EKS Cluster Configuration
+      #   run: |
+      #     aws eks --region your-aws-region update-kubeconfig \
+      #       --name your-eks-cluster-name  
         
       - name: "Logs into docker"
         uses: docker/login-action@v3
