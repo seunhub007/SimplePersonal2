@@ -61,7 +61,7 @@ jobs:
       - name: create a service account
         run: |
           echo "Creating service account..."
-          cluster_name=Dluster
+          cluster_name=Dcluster
           eksctl create iamserviceaccount \
           --name ebs-csi-controller-sa \
           --namespace kube-system \
