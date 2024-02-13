@@ -65,7 +65,7 @@ jobs:
           --name ebs-csi-controller-sa \
           --namespace kube-system \
           --cluster $cluster_name \
-          --role-name AmazonEKS_EBS_CSI_DriverRole \
+          --role-name EBSRole \
           --role-only \
           --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
           --approve
