@@ -79,7 +79,7 @@ jobs:
       # - name: Get EKS Cluster Configuration
       #   run: |
       #     aws eks --region your-aws-region update-kubeconfig \
-      #       --name your-eks-cluster-name  
+      #       --name your-eks-cluster-name 
         
       - name: "Logs into docker"
         uses: docker/login-action@v3
