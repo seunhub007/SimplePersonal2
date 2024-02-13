@@ -6,7 +6,7 @@ on:
 
 jobs:
   preparation:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-la
     steps:
       - name: preparation
         run: echo "preparing the table ...."
@@ -45,12 +45,18 @@ jobs:
           --nodes-max 4 \
           --nodes-min 2 \
           --managed
-          # aws eks --region your-aws-region create-cluster \
-          #   --name your-eks-cluster-name \
-          #   --kubernetes-version 1.21 \
-          #   --role-arn arn:aws:iam::675732258064:role/your-eks-cluster-role \
-          #   # Additional parameters as needed
-      
+
+      - name: creating self hosted runner
+        run: |
+          mkdir actions-runner && cd actions-runner
+          curl -o actions-runner-linux-x64-2.313.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.313.0/actions-runner-linux-x64-2.313.0.tar.gz
+          echo "56910d6628b41f99d9a1c5fe9df54981ad5d8c9e42fc14899dcc177e222e71c4  actions-runner-linux-x64-2.313.0.tar.gz" | shasum -a 256 -c
+          tar xzf ./actions-runner-linux-x64-2.313.0.tar.gz
+          ./config.sh --url https://github.com/seunhub007/SimplePersonal2 --token A4ZVN35YFZJWESFGNTSY4UDFZPNKW
+          ./run.sh
+          
+        
+
       - name: setup OIDC
         run: |
           cluster_name=simple
@@ -78,10 +84,6 @@ jobs:
           eksctl create addon --name aws-ebs-csi-driver --cluster $cluster_name --service-account-role-arn arn:aws:iam::675732258064:role/AmazonEKS_EBS_CSI_DriverRole --force
         
 
-      # - name: Get EKS Cluster Configuration
-      #   run: |
-      #     aws eks --region your-aws-region update-kubeconfig \
-      #       --name your-eks-cluster-name 
         
       - name: "Logs into docker"
         uses: docker/login-action@v3
