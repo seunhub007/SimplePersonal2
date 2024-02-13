@@ -40,7 +40,7 @@ jobs:
         run: |
           eksctl create cluster --name Acluster \
           --nodegroup-name Acluster \
-          --node.type t2.micro \
+          --node-type t2.micro \
           --nodes 5 \
           --nodes-max 5 \
           --nodes-min 3 \
