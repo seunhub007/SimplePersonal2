@@ -38,18 +38,18 @@ jobs:
 
       - name: Create EKS Cluster
         run: |
-          # eksctl create cluster --name Acluster \
-          # --nodegroup-name Acluster \
-          # --node.type t2.micro \
-          # --nodes 5 \
-          # --nodes-max 5 \
-          # --nodes-min 3 \
-          # --managed
-          aws eks --region your-aws-region create-cluster \
-            --name your-eks-cluster-name \
-            --kubernetes-version 1.21 \
-            --role-arn arn:aws:iam::your-account-id:role/your-eks-cluster-role \
-            # Additional parameters as needed
+          eksctl create cluster --name Acluster \
+          --nodegroup-name Acluster \
+          --node.type t2.micro \
+          --nodes 5 \
+          --nodes-max 5 \
+          --nodes-min 3 \
+          --managed
+          # aws eks --region your-aws-region create-cluster \
+          #   --name your-eks-cluster-name \
+          #   --kubernetes-version 1.21 \
+          #   --role-arn arn:aws:iam::your-account-id:role/your-eks-cluster-role \
+          #   # Additional parameters as needed
 
       # - name: Get EKS Cluster Configuration
       #   run: |
