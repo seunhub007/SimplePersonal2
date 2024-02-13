@@ -6,7 +6,7 @@ on:
 
 jobs:
   preparation:
-    runs-on: ubuntu-la
+    runs-on: self-hosted
     steps:
       - name: preparation
         run: echo "preparing the table ...."
