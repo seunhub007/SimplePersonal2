@@ -26,9 +26,9 @@ jobs:
           eksctl create cluster --name Acluster \
           --nodegroup-name Acluster \
           --node.type t2.micro \
-          --nodes 4 \
-          --nodes-max 4 \
-          --nodes-min 2 \
+          --nodes 5 \
+          --nodes-max 5 \
+          --nodes-min 3 \
           --managed
           # aws eks --region your-aws-region create-cluster \
           #   --name your-eks-cluster-name \
