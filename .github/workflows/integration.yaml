@@ -16,13 +16,13 @@ jobs:
         with:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_PASSWORD }}  
-      - name: "Build code"
+      - name: "Build our code"
         env:
           IMAGE_NAME: spcool
-          VERSION: 1
+          VERSION: latest
           USERNAME: seun007
         run: |
-            docker build -t $USERNAME/$IMAGE_NAME:$VERSION -f /path/to/Dockerfile .
+            docker build -t $USERNAME/$IMAGE_NAME:$VERSION .
             docker push $USERNAME/$IMAGE_NAME:$VERSION
 
 

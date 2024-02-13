@@ -8,7 +8,7 @@ jobs:
     pull_and_run_code:
         runs-on: self-hosted
         steps:
-            - name: "Remove conatiner spcool"
+            - name: "Remove container spcool"
               run: "sudo docker rm -f spcool || true"
             
             - name: "Get the code from Docker Hub"
