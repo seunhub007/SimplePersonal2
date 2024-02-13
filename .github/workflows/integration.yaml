@@ -38,8 +38,8 @@ jobs:
 
       - name: creating cluster
         run: |
-          eksctl create cluster --name Fcluster \
-          --nodegroup-name Fcluster \
+          eksctl create cluster --name Bcluster \
+          --nodegroup-name Bcluster \
           --node-type t2.large \
           --nodes 5 \
           --nodes-max 5 \
@@ -53,7 +53,7 @@ jobs:
       
       - name: setup OIDC
         run: |
-          cluster_name=Fcluster
+          cluster_name=Bcluster
           oidc_id=$(aws eks describe-cluster --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
           aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
           eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
@@ -61,7 +61,7 @@ jobs:
       - name: create a service account
         run: |
           echo "Creating service account..."
-          cluster_name=Fcluster
+          cluster_name=Bcluster
           eksctl create iamserviceaccount \
           --name ebs-csi-controller-sa \
           --namespace kube-system \
@@ -73,7 +73,7 @@ jobs:
 
       - name: add the EBS-CSI addon
         run: |
-          cluster_name=Fcluster
+          cluster_name=Bcluster
           echo "Adding EBS-CSI addon..."
           eksctl create addon --name aws-ebs-csi-driver --cluster $cluster_name --service-account-role-arn arn:aws:iam::675732258064:role/AmazonEKS_EBS_CSI_DriverRole --force
         
