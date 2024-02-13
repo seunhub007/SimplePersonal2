@@ -8,11 +8,11 @@ jobs:
     pull_and_run_code:
         runs-on: self-hosted
         steps:
-            - name: "Remove conatiner SPP"
-              run: "sudo docker rm -f SPP || true"
+            - name: "Remove conatiner sp"
+              run: "sudo docker rm -f sp || true"
             
             - name: "Get the code from Docker Hub"
-              run: "sudo docker pull seun007/SPP:1"
+              run: "sudo docker pull seun007/sp:1"
             
             - name: "Run the image as a container"
-              run: "sudo docker run -d -p 80:80 --name SPP seun007/SPP:1"  
+              run: "sudo docker run -d -p 80:80 --name sp seun007/sp:1"  

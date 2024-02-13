@@ -18,7 +18,7 @@ jobs:
             password: ${{ secrets.DOCKERHUB_PASSWORD }}  
       - name: "Build our code"
         env:
-          IMAGE_NAME: SPP
+          IMAGE_NAME: sp
           VERSION: 1
           USERNAME: seun007
         run: |
