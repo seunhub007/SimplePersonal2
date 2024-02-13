@@ -62,6 +62,7 @@ jobs:
         run: |
           echo "Creating service account..."
           eksctl create iamserviceaccount \
+          --name ebs-csi-controller-sa \
           --namespace kube-system \
           --cluster $cluster_name \
           --role-name AmazonEKS_EBS_CSI_DriverRole \
