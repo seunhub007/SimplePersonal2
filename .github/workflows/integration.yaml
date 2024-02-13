@@ -22,7 +22,7 @@ jobs:
           VERSION: 1
           USERNAME: seun007
         run: |
-            docker build -t $USERNAME/$IMAGE_NAME:$VERSION .
+            docker build -t $USERNAME/$IMAGE_NAME:$VERSION -f /path/to/Dockerfile .
             docker push $USERNAME/$IMAGE_NAME:$VERSION
 
 
