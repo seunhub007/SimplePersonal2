@@ -16,9 +16,9 @@ jobs:
         with:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_PASSWORD }}  
-      - name: "Build code"
+      - name: "Build our code"
         env:
-          IMAGE_NAME: sp
+          IMAGE_NAME: spcool
           VERSION: 1
           USERNAME: seun007
         run: |
