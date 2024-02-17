@@ -21,20 +21,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       # Install EKSCTL
-      # - name: installing eksctl
-      #   run: |
-      #       # for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`
-      #       ARCH=amd64
-      #       PLATFORM=$(uname -s)_$ARCH
+      - name: installing eksctl
+        run: |
+            # for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`
+            ARCH=amd64
+            PLATFORM=$(uname -s)_$ARCH
         
-      #       curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+            curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
         
-      #       # (Optional) Verify checksum
-      #       curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
+            # (Optional) Verify checksum
+            curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
         
-      #       tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+            tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
         
-      #       sudo mv /tmp/eksctl /usr/local/bin
+            sudo mv /tmp/eksctl /usr/local/bin
 
       - name: creating cluster
         run: |
@@ -45,14 +45,6 @@ jobs:
           --nodes-max 4 \
           --nodes-min 2 \
           --managed
-
-      # - name: creating self-hosted
-      #   run: |
-      #     mkdir actions-runner && cd actions-runner 
-      #     curl -o actions-runner-linux-x64-2.313.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.313.0/actions-runner-linux-x64-2.313.0.tar.gz
-      #     echo "56910d6628b41f99d9a1c5fe9df54981ad5d8c9e42fc14899dcc177e222e71c4  actions-runner-linux-x64-2.313.0.tar.gz" | shasum -a 256 -c
-      #     tar xzf ./actions-runner-linux-x64-2.313.0.tar.gz
-      #     ./config.sh --url https://github.com/seunhub007/SimplePersonal2 --token A4ZVN37RXUPUJHM7CCN2GXTFZPZ3M
                
           
           
