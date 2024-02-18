@@ -95,21 +95,21 @@ jobs:
           sudo apt-get install helm -y
 
       - name: Helm Create
-        run: |
-          my-chart=vip  
-          helm create my-chart
+        run: | 
+          helm create chart --name vip
+          helm install release --name vip
           ls my-chart  # Display the contents of the newly created Helm chart directory
     
       - name: Helm Template
         run: |
           my-chart=vip
-          helm template my-chart
+          helm template --chart $my-chart
     
       - name: Helm Install
         run: |
           my-chart=vip
           my-release=vip 
-          helm install my-release my-chart      
+          helm install --release $my-release --chart $my-chart      
           
      
       - name: Set up Helm
@@ -118,18 +118,18 @@ jobs:
       - name: Copy Deployment and Service YAMLs
         run: |
           my-chart=vip
-          mkdir -p my-chart/templates
-          cp SP2-deployment.yaml my-chart/templates
-          cp SP2-service.yaml my-chart/templates
-          cp pvc.yaml my-chart/templates
-          cp storageclass.yaml my-chart/templates
+          mkdir -p --chart $my-chart/templates
+          cp SP2-deployment.yaml --chart $my-chart/templates
+          cp SP2-service.yaml --chart $my-chart/templates
+          cp pvc.yaml --chart $my-chart/templates
+          cp storageclass.yaml --chart $my-chart/templates
       
     
       - name: Deploy Helm Chart
         run: |
           my-chart=vip
           my-release=vip 
-          helm upgrade --install my-release ./my-chart
+          helm upgrade --install $my-release ./$my-chart
       
       - name: run kubectl
         run: |
