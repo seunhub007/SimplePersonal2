@@ -73,8 +73,72 @@ jobs:
           cluster_name=simple
           echo "Adding EBS-CSI addon..."
           eksctl create addon --name aws-ebs-csi-driver --cluster $cluster_name --service-account-role-arn arn:aws:iam::675732258064:role/AmazonEKS_EBS_CSI_DriverRole --force
-        
+      
 
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Install kubectl
+        run: |
+          sudo apt-get update && sudo apt-get install -y apt-transport-https
+          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+          sudo apt-get update
+          sudo apt-get install -y kubectl
+              
+      - name: Install Helm Package manager
+        run: |
+          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+          sudo apt-get install apt-transport-https --yes
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+          sudo apt-get update
+          sudo apt-get install helm -y
+
+      - name: Helm Create
+        run: |
+          my-chart=vip  
+          helm create my-chart
+          ls my-chart  # Display the contents of the newly created Helm chart directory
+    
+      - name: Helm Template
+        run: |
+          my-chart=vip
+          helm template my-chart
+    
+      - name: Helm Install
+        run: |
+          my-chart=vip
+          my-release=vip 
+          helm install my-release my-chart      
+          
+     
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+    
+      - name: Copy Deployment and Service YAMLs
+        run: |
+          my-chart=vip
+          mkdir -p my-chart/templates
+          cp SP2-deployment.yaml my-chart/templates
+          cp SP2-service.yaml my-chart/templates
+          cp pvc.yaml my-chart/templates
+          cp storageclass.yaml my-chart/templates
+      
+    
+      - name: Deploy Helm Chart
+        run: |
+          my-chart=vip
+          my-release=vip 
+          helm upgrade --install my-release ./my-chart
+      
+      - name: run kubectl
+        run: |
+          kubectl get pods
+          kubectl get svc
+              
+
+     
+        
         
       - name: "Logs into docker"
         uses: docker/login-action@v3

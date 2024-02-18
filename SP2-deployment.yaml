@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sp2
+spec:
+  selector:
+    matchLabels:
+      app: sp2
+  template:
+    metadata:
+      labels:
+        app: sp2
+    spec:
+      containers:
+      - name: sp2
+        image: sp2
+        # resources:
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
+        ports:
+        - containerPort: 80

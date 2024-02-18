@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sp2
+spec:
+  selector:
+    app: sp2
+  ports:
+  - port: 90
+    targetPort: 80
