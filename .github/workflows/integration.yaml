@@ -96,8 +96,8 @@ jobs:
 
       - name: Helm Create
         run: | 
-          helm create chart --name vip
-          helm install release --name vip
+          helm create chart vip
+          helm install release vip
           ls my-chart  # Display the contents of the newly created Helm chart directory
     
       - name: Helm Template
