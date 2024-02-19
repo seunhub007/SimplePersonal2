@@ -109,12 +109,10 @@ jobs:
           
      
       - name: Set up Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v2
     
       - name: Copy Deployment and Service YAMLs
         run: |
-          my-chart=vip
-          mkdir -p vip/templates
           cp SP2-deployment.yaml vip/templates
           cp SP2-service.yaml vip/templates
           cp pvc.yaml vip/templates
